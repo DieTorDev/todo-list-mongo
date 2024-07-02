@@ -1,5 +1,5 @@
 const PORT = 3000;
 const URL_BASE = `http://localhost:${PORT}/`;
-const API_USERS = URL_BASE + 'api/users';
+const API_USERS = URL_BASE + 'api/tasks/';
 
 export const URLS = { USER_API: API_USERS };

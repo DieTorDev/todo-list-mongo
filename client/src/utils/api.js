@@ -16,7 +16,7 @@ export const postData = async (url, body) => {
 	return data;
 };
 
-export const patchData = async url => {
+export const patchData = async (url, body) => {
 	const data = await fetchData(url, {
 		method: METHODS.PATCH,
 		body: JSON.stringify(body),
