@@ -31,8 +31,12 @@ tasksController.createTask = async (req, res) => {
 
 tasksController.updateTask = async (req, res) => {
   const { id } = req.params;
-  console.log(req.body);
+
   try {
+    const task = await TaskModel.findById(id);
+
+    if (!task) return res.send({ error: 'Task not found' });
+
     await TaskModel.updateOne({ _id: id }, { $set: { ...req.body } });
 
     const allTasks = await TaskModel.find();
