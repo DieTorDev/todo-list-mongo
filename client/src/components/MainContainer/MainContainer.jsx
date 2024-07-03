@@ -32,10 +32,10 @@ const MainContainer = () => {
 							<div>
 								<p>{task.task}</p>
 								<input
-									onChange={() => handleCompleted(task._id, setTasks)}
+									onChange={() => handleCompleted(task, setTasks)}
 									type='checkbox'
 								/>
-								<button onClick={() => handleDelete(task, setTasks)}>
+								<button onClick={() => handleDelete(task._id, setTasks)}>
 									DELETE
 								</button>
 							</div>
@@ -67,6 +67,7 @@ const handleSubmit = async (event, newTask, setTasks) => {
 };
 
 const handleCompleted = async (task, setTasks) => {
+	console.log(task);
 	try {
 		const data = await patchData(URLS.USER_API + task.id, {
 			...task,
@@ -79,6 +80,7 @@ const handleCompleted = async (task, setTasks) => {
 };
 
 const handleDelete = async (id, setTasks) => {
+	console.log(id);
 	try {
 		const data = await deleteData(URLS.USER_API + id);
 		setTasks(data);

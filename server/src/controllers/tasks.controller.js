@@ -31,6 +31,7 @@ tasksController.createTask = async (req, res) => {
 
 tasksController.updateTask = async (req, res) => {
   const { id } = req.params;
+  console.log(req.body);
   try {
     await TaskModel.updateOne({ _id: id }, { $set: { ...req.body } });
 
