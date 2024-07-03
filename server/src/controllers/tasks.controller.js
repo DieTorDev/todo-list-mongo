@@ -3,7 +3,6 @@ const TaskModel = require('../models/task.model');
 
 const tasksController = {};
 
-// Obtener todas las tareas
 tasksController.getAllTasks = async (req, res) => {
   try {
     const allTasks = await TaskModel.find();
@@ -23,9 +22,10 @@ tasksController.createTask = async (req, res) => {
     await newTask.save();
 
     const allTasks = await TaskModel.find();
-    res.send(allTasks);
+    res.status(201).send(allTasks);
   } catch (err) {
     console.error(err);
+    res.status(409).send(err);
   }
 };
 
@@ -35,22 +35,26 @@ tasksController.updateTask = async (req, res) => {
   try {
     const task = await TaskModel.findById(id);
 
-    if (!task) return res.send({ error: 'Task not found' });
+    if (!task) return res.status(409).send({ error: 'Task not found' });
 
     await TaskModel.updateOne({ _id: id }, { $set: { ...req.body } });
 
     const allTasks = await TaskModel.find();
-    res.send(allTasks);
+    res.status(202).send(allTasks);
   } catch (err) {}
 };
 
 tasksController.deleteTask = async (req, res) => {
   const { id } = req.params;
   try {
+    const task = await TaskModel.findById(id);
+
+    if (!task) return res.status(404).send({ error: 'Task not found' });
+
     await TaskModel.deleteOne({ _id: id });
 
     const allTasks = await TaskModel.find();
-    res.send(allTasks);
+    res.status(202).send(allTasks);
   } catch (err) {}
 };
 
