@@ -34,6 +34,7 @@ const MainContainer = () => {
 								<input
 									onChange={() => handleCompleted(task, setTasks)}
 									type='checkbox'
+									defaultChecked={task.completed}
 								/>
 								<button onClick={() => handleDelete(task._id, setTasks)}>
 									DELETE
@@ -69,7 +70,7 @@ const handleSubmit = async (event, newTask, setTasks) => {
 const handleCompleted = async (task, setTasks) => {
 	console.log(task);
 	try {
-		const data = await patchData(URLS.USER_API + task.id, {
+		const data = await patchData(URLS.USER_API + task._id, {
 			...task,
 			completed: !task.completed
 		});
